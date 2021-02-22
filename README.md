@@ -70,7 +70,7 @@ Open `http://localhost:3000/` in your browser.
 
 > I created an entity relationship diagram to help me visualize the database.
 
-![database_model](./docs/databasemodel.png)
+![database_model](./docs/erd.png)
 
 ### Deployment
 
