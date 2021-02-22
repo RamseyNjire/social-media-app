@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id"
 
 
-  # Have a method that returns all of a user's friends, no matter who sent the friend request.
+  # Have a method that returns all of a user's friends, no matter who sent the friend request
 
   def friends
     friends = friendships.map { |friendship| friendship.friend if friendship.status }
@@ -21,13 +21,29 @@ class User < ApplicationRecord
     friends.compact
   end
 
-  def confirm_friendship
+  # This method lists a user's sent friendship requests
+
+  def sent_requests
+    friendships.map { |friendship| friendship.friend if !friendship.status}.compact
+  end
+
+  # This method lists a user's pending friendship requests (those sent by others that a user is yet to confirm)
+
+  def pending_requests
+    inverse_friendships.map { |friendship| friendship.user if !friendship.status }.compact
+  end
+
+  # This method enables a user to confirm a friend request
+
+  def confirm_friendship(user)
     friendship = inverse_friendships.find { |friendship| friendship.user === user }
     frienship.status = true
     friendship.save
   end
 
-  def is_friend?
+  # This method checks if the given user is a friend of the current user
+
+  def is_friend?(user)
     friends.include?(user)
   end
 
