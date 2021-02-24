@@ -12,5 +12,5 @@
   name = Faker::Name.name
   email = "example-#{n+1}@gmail.com"
   password = "password"
-  User.create
+  User.create(name: name, email: email, password: password)
 end
