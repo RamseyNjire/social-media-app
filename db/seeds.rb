@@ -10,7 +10,7 @@
 
 30.times do |count|
   name = Faker::Name.name
-  email = "example-#{n+1}@gmail.com"
+  email = "example-#{count+1}@gmail.com"
   password = "password"
   User.create(name: name, email: email, password: password)
 end
