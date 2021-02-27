@@ -5,8 +5,8 @@ FactoryBot.define do
     password { "password" }
   end
   factory :friendship do
-    user { user }
-    association { :friend, factory: :user, name: "meteur", email: "meteur@gmail.com", strategy: :build }
+    association :user
+    association :friend, factory: :user, name: "meteur", email: "meteur@gmail.com", strategy: :build
     status { false }
   end
 end
