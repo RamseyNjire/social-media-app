@@ -4,10 +4,9 @@ FactoryBot.define do
     email { "reson.njeri@gmail.com" }
     password { "password" }
   end
-
   factory :friendship do
     user { user }
-    friend { user, name: "meteur", email: "meteur@gmail.com" }
+    association { :friend, factory: :user, name: "meteur", email: "meteur@gmail.com", strategy: :build }
     status { false }
   end
 end
