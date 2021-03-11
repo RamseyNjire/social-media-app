@@ -33,7 +33,8 @@ RSpec.describe User, type: :model do
     end
 
     it "cannot send friend requests to self" do
-      
+      self_friendship = @reson.send_friendship_request(@reson)
+      self_friendship.should be_falsey
     end
   end
 end
