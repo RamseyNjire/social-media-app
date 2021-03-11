@@ -16,8 +16,12 @@ RSpec.describe User, type: :model do
   context "validates uniqueness of the email attribute" do
 
     it "validates the uniqueness of an email address" do
-      some_other_reson = build(:user)
+      some_other_reson = build(:user, name: "Reson", email: "resonnjeri@gmail.com")
       expect(some_other_reson).to_not be_valid
     end
+  end
+
+  context "can send friendship requests" do
+    it "can send friend requests to other users"
   end
 end

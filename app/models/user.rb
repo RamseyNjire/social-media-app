@@ -13,6 +13,12 @@ class User < ApplicationRecord
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id", dependent: :destroy
 
 
+  # Be able to send a friend request to a given user
+
+  def send_friendship_request(user)
+  end
+
+
   # Have a method that returns all of a user's friends, no matter who sent the friend request
 
   def friends

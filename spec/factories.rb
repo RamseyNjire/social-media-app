@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user, aliases: [:friend] do
-    name { "Reson" }
-    email { "reson.njeri@gmail.com" }
+    name { Faker::Name.first_name }
+    email { Faker::Internet.safe_email }
     password { "password" }
   end
   factory :friendship do
