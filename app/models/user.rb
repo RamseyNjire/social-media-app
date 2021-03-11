@@ -17,6 +17,7 @@ class User < ApplicationRecord
 
   def send_friendship_request(user)
     return false if user == self
+    return false if Friendship.find_by user: self, friend: user
     friendship = Friendship.create(user: self, friend: user, status: false)
   end
 
@@ -44,12 +45,9 @@ class User < ApplicationRecord
   # This method enables a user to confirm a friend request
 
   def confirm_friendship(user)
-    friendship = Friendship.find_by user: user, friend: self
-    friendship.update(status: true)
+    friendship = inverse_friendships.find { |friendship| friendship.user === user }
+    friendship.status = true
     friendship.save
-    # friendship = inverse_friendships.find { |friendship| friendship.user === user }
-    # friendship.status = true
-    # friendship.save
   end
 
   # This method checks if the given user is a friend of the current user

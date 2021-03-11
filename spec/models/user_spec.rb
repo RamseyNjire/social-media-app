@@ -35,14 +35,21 @@ RSpec.describe User, type: :model do
 
     it "cannot send friendship requests to self" do
       self_friendship = @reson.send_friendship_request(@reson)
-      self_friendship.should be_falsey
+      expect { self_friendship.to be falsey }
+    end
+
+    it "cannot send friendship requests more than once" do
+      @reson.send_friendship_request(@naimutie)
+      expect { @reson.send_friendship_request(@naimutie) }.not_to change { Friendship.count }
     end
   end
 
   context "can confirm friendship requests" do
     it "changes friendship status on confirmation" do
-    friendship = @reson.send_friendship_request(@naimutie)
-    expect { @naimutie.confirm_friendship(@reson) }.to change { friendship.status }
+    @reson.send_friendship_request(@naimutie)
+    @naimutie.confirm_friendship(@reson)
+    friendship = Friendship.find_by user: @reson, friend: @naimutie
+    expect { friendship.status.to be true }
     end
   end
 end
