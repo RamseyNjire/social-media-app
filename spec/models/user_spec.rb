@@ -4,6 +4,7 @@ RSpec.describe User, type: :model do
   before(:all) do
     @reson = create(:user)
     @naimutie = create(:user)
+    @meteur = create(:user)
   end
   context "validates presence and length of various attributes for a new user" do
     before(:all) do
@@ -32,9 +33,16 @@ RSpec.describe User, type: :model do
       expect { friendship.status.to be false }
     end
 
-    it "cannot send friend requests to self" do
+    it "cannot send friendship requests to self" do
       self_friendship = @reson.send_friendship_request(@reson)
       self_friendship.should be_falsey
+    end
+  end
+
+  context "can confirm friendship requests" do
+    it "changes friendship status on confirmation" do
+    friendship = @reson.send_friendship_request(@naimutie)
+    expect { @naimutie.confirm_friendship(@reson) }.to change { friendship.status }
     end
   end
 end
