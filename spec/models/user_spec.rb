@@ -26,5 +26,14 @@ RSpec.describe User, type: :model do
     it "can send friend requests to other users" do
       expect { @reson.send_friendship_request(@naimutie) }.to change { Friendship.count }
     end
+
+    it "checks to see that the new friendship has a status of false" do
+      friendship = Friendship.find_by user: @reson, friend: @naimutie
+      expect { friendship.status.to be false }
+    end
+
+    it "cannot send friend requests to self" do
+      
+    end
   end
 end
