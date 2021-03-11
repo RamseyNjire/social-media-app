@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before(:all) do
-    reson = create(:user)
+    @reson = create(:user)
+    @naimutie = create(:user)
   end
   context "validates presence and length of various attributes for a new user" do
     before(:all) do
@@ -16,12 +17,14 @@ RSpec.describe User, type: :model do
   context "validates uniqueness of the email attribute" do
 
     it "validates the uniqueness of an email address" do
-      some_other_reson = build(:user, name: "Reson", email: "resonnjeri@gmail.com")
+      some_other_reson = build(:user, name: @reson.name, email: @reson.email)
       expect(some_other_reson).to_not be_valid
     end
   end
 
   context "can send friendship requests" do
-    it "can send friend requests to other users"
+    it "can send friend requests to other users" do
+      expect { @reson.send_friendship_request(@naimutie) }.to change { Friendship.count }
+    end
   end
 end

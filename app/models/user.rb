@@ -16,6 +16,7 @@ class User < ApplicationRecord
   # Be able to send a friend request to a given user
 
   def send_friendship_request(user)
+    friendship = Friendship.create(user: self, friend: user, status: false)
   end
 
 
