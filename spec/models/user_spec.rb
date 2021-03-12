@@ -51,5 +51,7 @@ RSpec.describe User, type: :model do
     friendship = Friendship.find_by user: @reson, friend: @naimutie
     expect { friendship.status.to be true }
     end
+
+    it "cannot confirm friendship requests more than once"
   end
 end

@@ -18,7 +18,7 @@ class User < ApplicationRecord
   def send_friendship_request(user)
     return false if user == self
     return false if Friendship.find_by user: self, friend: user
-    friendship = Friendship.create(user: self, friend: user, status: false)
+    Friendship.create(user: self, friend: user, status: false)
   end
 
 
