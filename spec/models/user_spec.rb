@@ -5,6 +5,7 @@ RSpec.describe User, type: :model do
     @reson = create(:user)
     @naimutie = create(:user)
     @meteur = create(:user)
+    @wanjohi = create(:user)
   end
   context "validates presence and length of various attributes for a new user" do
     before(:all) do
@@ -53,5 +54,23 @@ RSpec.describe User, type: :model do
     end
   end
 
-  context "can check how many friends a user has"
+  context "can check how many friends a user has" do
+    before(:all) do
+      @reson.send_friendship_request(@naimutie)
+      @reson.send_friendship_request(@meteur)
+    end
+
+    it "only returns a list of friends who have confirmed the request" do
+      expect { @reson.friends.length.to be 0 }
+    end
+
+    it "includes a friend in a user's friend list when they have confirmed a request" do
+      @naimutie.confirm_friendship(@reson)
+      expect { @reson.friends.length.to be 1 }
+    end
+
+    it "only returns a list of friends for whom a user has confirmed requests" do
+      expect { @meteur.friends.length.to be 0 }
+    end
+  end
 end
