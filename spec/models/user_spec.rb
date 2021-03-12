@@ -52,4 +52,6 @@ RSpec.describe User, type: :model do
     expect { friendship.status.to be true }
     end
   end
+
+  context "can check how many friends a user has"
 end
